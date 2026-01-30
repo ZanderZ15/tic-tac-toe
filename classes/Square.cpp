@@ -12,3 +12,11 @@ void Square::initHolder(const ImVec2 &position, const char *spriteName, const in
     }
     BitHolder::initHolder(position, color, spriteName);
 }
+
+int Square::getCol() const {
+    return _column;
+}
+
+int Square::getRow() const {
+    return _row;
+}

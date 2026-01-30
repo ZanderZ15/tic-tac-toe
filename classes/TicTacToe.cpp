@@ -70,13 +70,15 @@ void TicTacToe::setUpBoard()
                 boardOrigin.y + row * squareSize
             );
             _grid[row][col].initHolder(pos, "square.png", col, row);
+            //std::cout <<  _grid[row][col].getCol() << std::endl;
 
         }
     }
     // we will use the initHolder function on each square to do this
     
     // finally we should call startGame to get everything going
-    
+    startGame();
+
 }
 
 //

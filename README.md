@@ -1,0 +1,1 @@
+Added get methods for Square col and row
