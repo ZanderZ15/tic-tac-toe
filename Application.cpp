@@ -34,7 +34,7 @@ namespace ClassGame {
                 if (!game->getCurrentPlayer()) return;
                 
                 ImGui::Begin("Settings");
-                ImGui::Text("Current Player Number: %d", game->getCurrentPlayer()->playerNumber());
+                ImGui::Text("Current Player Number: %d", game->getCurrentPlayer()->playerNumber()+1);
                 ImGui::Text("Current Board State: %s", game->stateString().c_str());
 
                 if (gameOver) {
@@ -64,7 +64,7 @@ namespace ClassGame {
             if (winner)
             {
                 gameOver = true;
-                gameWinner = winner->playerNumber();
+                gameWinner = winner->playerNumber()+1;
             }
             if (game->checkForDraw()) {
                 gameOver = true;
