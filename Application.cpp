@@ -9,6 +9,8 @@ namespace ClassGame {
         TicTacToe *game = nullptr;
         bool gameOver = false;
         int gameWinner = -1;
+        //bool ai = false;
+        bool choice = false;
 
         //
         // game starting point
@@ -34,6 +36,27 @@ namespace ClassGame {
                 if (!game->getCurrentPlayer()) return;
                 
                 ImGui::Begin("Settings");
+
+                if (!choice) {
+                    if (ImGui::Button("Player vs Player")) {
+                        //ai = false;
+                        choice = true;
+                        game->ai = false;
+                    }
+                    ImGui::SameLine();
+                    if (ImGui::Button("Player vs Ai")) {
+                        
+                        //ai = true;
+                        choice = true;
+                        game->ai = true;
+                        
+                    }
+                }
+                if (game->ai) {
+                    ImGui::Text("Mode: Player vs Ai");
+                } else {
+                    ImGui::Text("Mode: Player vs Player");
+                }
                 ImGui::Text("Current Player Number: %d", game->getCurrentPlayer()->playerNumber()+1);
                 ImGui::Text("Current Board State: %s", game->stateString().c_str());
 
@@ -45,12 +68,13 @@ namespace ClassGame {
                         game->setUpBoard();
                         gameOver = false;
                         gameWinner = -1;
+                        choice = false;
                     }
                 }
                 ImGui::End();
 
                 ImGui::Begin("GameWindow");
-                game->drawFrame();
+                if (choice) {game->drawFrame();}
                 ImGui::End();
         }
 

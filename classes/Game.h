@@ -104,5 +104,8 @@ public:
 	GameOptions 			_gameOptions;
 
 	int						_gameNumber;
+
+	bool					ai;
+	bool					aiMovedThisTurn;
 };
 

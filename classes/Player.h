@@ -26,7 +26,11 @@ public:
 	Player			*previousPlayer();
 	bool			isAIPlayer() const { return _aiPlayer; }
 	void			copyFrom(Player &player);
-	void			setAIPlayer(bool aiPlayer) { _aiPlayer = aiPlayer; }
+	void			setAIPlayer(bool aiPlayer, unsigned int playerNumber) { //HERE
+						std::cout << "set ai PLAYER" << std::endl;
+						_aiPlayer = aiPlayer; 
+						_playerNumber = playerNumber;
+					}
 private:
 	Game			*_game;
 	std::string		_name;

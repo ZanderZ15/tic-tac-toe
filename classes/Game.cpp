@@ -22,6 +22,9 @@ Game::Game()
 	_winner = nullptr;
 	_lastMove = "";
 	_gameNumber = -1;
+	ai = false;
+	aiMovedThisTurn = false;
+	
 }
 
 
@@ -64,8 +67,9 @@ void Game::setNumberOfPlayers(unsigned int n)
 
 void Game::setAIPlayer(unsigned int playerNumber)
 {
-	_players.at(playerNumber)->setAIPlayer(true);
-	_gameOptions.AIPlayer = playerNumber;
+	std::cout << "set ai player: Game" << std::endl;
+	_players.at(playerNumber)->setAIPlayer(false, playerNumber-1);
+	//_gameOptions.AIPlayer = playerNumber;
 	_gameOptions.AIPlayer = true;
 }
 
@@ -92,12 +96,16 @@ void Game::endTurn()
 }
 
 void Game::scanForMouse()
-{
-    //if (gameHasAI() && getCurrentPlayer()->isAIPlayer()) 
-    //{
-    //    updateAI();
-    //    return;
-    //}
+{	
+	if (!aiMovedThisTurn) {
+		if (ai && getCurrentPlayer()->playerNumber() == 1) //SET TO ALWAYS MAKE AI GO SECOND; CHANGE IN FUTURE
+		{	
+			std::cout << "AI thinking\n";
+			aiMovedThisTurn = true;
+			updateAI();
+			
+		}
+	}
 
     ImVec2 mousePos = ImGui::GetMousePos();
     mousePos.x -= ImGui::GetWindowPos().x;
@@ -110,6 +118,7 @@ void Game::scanForMouse()
                 if (ImGui::IsMouseClicked(0)) {
                     if (actionForEmptyHolder(&holder)) {
                         endTurn();
+						aiMovedThisTurn = false;
                     }
                 } else {
                     holder.setHighlighted(true);
@@ -118,7 +127,8 @@ void Game::scanForMouse()
                 holder.setHighlighted(false);
             }
         }
-    }    
+    }   
+	aiMovedThisTurn = false; 
 }
 
 //
@@ -167,7 +177,7 @@ bool Game::animateAndPlaceBitFromTo(Bit *bit, BitHolder*src, BitHolder*dst)
 
 bool Game::gameHasAI()
 {
-    return false;
+    return _gameOptions.AIPlayer;
 }
 
 void Game::updateAI()

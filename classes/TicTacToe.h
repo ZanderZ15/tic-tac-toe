@@ -31,6 +31,23 @@ public:
 	void        updateAI() override;
     bool        gameHasAI() override { return true; }
     BitHolder &getHolderAt(const int x, const int y) override { return _grid[y][x]; }
+
+    //ai functions
+    int         evaluate(Player* aiPlayer);
+    int         negamax(int board[9], int currentPlayer, int aiPlayer);
+    bool        isBoardFull() const;
+    void        makeMove(int index, Player* player);
+    Player*     getOtherPlayer(Player* p);
+    void        extractBoard(int board[9]) const;
+    void        onTurnStarted();
+    
+    //bool        aiMovedThisTurn = false;
+
+
+
+    bool        game_over = false;
+
+    unsigned int AI_PLAYER;
 private:
     Bit *       PieceForPlayer(const int playerNumber);
     Player*     ownerAt(int index ) const;
